@@ -28,7 +28,7 @@ bool DoesDirectoryExists(std::string const &Directory);
 
 int main(int argc, char ** argv)
 {
-	srand((double)time(NULL));
+	srand((unsigned int)time(NULL));
 	std::string InputFile;
 	std::string OutputFile = "";
 
@@ -47,6 +47,10 @@ int main(int argc, char ** argv)
 	}
 
 	FInstance Instance(LoadInstance(InputFile));
+
+	Instance.SetMaxLinks(99999);
+	Instance.SetMaxRouters(99999);
+
 	std::cout << Instance.GetLength() << std::endl;
 	//TInstData DataCopy = Instance.GetInstanceData();
 	/*
@@ -61,7 +65,10 @@ int main(int argc, char ** argv)
 	*/
 
 //	Instance = MPrim(Instance, 0);
-	Instance = CMSA(Instance, 10, 3, 0.2);
+
+
+/*
+	Instance = CMSA(Instance, 10, 3, (float) 0.2);
 	TInstData DataCopy = Instance.GetInstanceData();
 	
 	for (auto& Line : DataCopy) {
@@ -72,6 +79,10 @@ int main(int argc, char ** argv)
 	}
 	std::cout << std::endl;
 	std::cout << Instance.GetLength() << std::endl;
+*/
+
+
+	CPLEX_TCP(Instance);
 
 	return 0;
 }

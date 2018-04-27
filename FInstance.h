@@ -55,10 +55,18 @@ public:
 	Graph_t * GetGraphPointer();
 	void Merge(FInstance & Instance, bool Update = false);
 	int GetLength();
+	int GetMaxRouters();
+	void SetMaxRouters(int MaxRouters);
+	int GetMaxLinks();
+	void SetMaxLinks(int MaxLinks);
+	int GetArcCount();
+	std::deque<std::deque<int>> GetAdjacencyMatrix();
 
 private:
 	Graph_t Graph;
 	std::deque<int> Terminals;
+	int MaxRouters;
+	int MaxLinks;
 	bool ClosesCicle(std::deque<int> const & Edge);
 	void RemoveArc(std::deque<int> const & Arc);
 	void SetArcAge(std::deque<int> const & Arc, int Age);

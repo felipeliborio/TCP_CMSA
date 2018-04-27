@@ -40,10 +40,7 @@ FInstance CMSA(FInstance & Instance, int PrimExecutions, int AgeMax, float const
 }
 
 FInstance ApplyExactSolver(FInstance & Instance) {
-	//TODO use DW algorithm or CPLEX
-	FInstance Output = MPrim(OUT Instance, 0);
-	SimplifyInstance(Output);
-	return Output;
+	return CPLEX_TCP(Instance);
 }
 
 void Adapt(FInstance & ReducedInstance, FInstance & BestSoFar, int const & AgeMax)

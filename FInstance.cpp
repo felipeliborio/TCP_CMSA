@@ -222,3 +222,45 @@ bool FInstance::ClosesCicle(std::deque<int> const & Edge)
 	}
 	return false;
 }
+
+int FInstance::GetMaxRouters()
+{
+	return this->MaxRouters;
+}
+
+void FInstance::SetMaxRouters(int MaxRouters)
+{
+	this->MaxRouters = MaxRouters;
+}
+
+
+int FInstance::GetMaxLinks()
+{
+	return this->MaxLinks;
+}
+
+void FInstance::SetMaxLinks(int MaxLinks)
+{
+	this->MaxLinks = MaxLinks;
+}
+
+int FInstance::GetArcCount()
+{
+	return this->Graph.size();
+}
+
+std::deque<std::deque<int>> FInstance::GetAdjacencyMatrix()
+{
+
+	int Size = this->Graph.rbegin()->first;
+	std::deque<int> Line(Size, -1);
+	std::deque<std::deque<int>> GraphM(Size, Line);
+
+	for (auto Vertex : this->Graph) {
+		for (auto CVertex : this->Graph[Vertex.first]) {
+			GraphM[Vertex.first][CVertex.first] = CVertex.second.Weight;
+		}
+	}
+
+	return GraphM;
+}
