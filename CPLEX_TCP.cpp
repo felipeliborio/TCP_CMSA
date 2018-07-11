@@ -33,26 +33,12 @@ FInstance CPLEX_TCP(FInstance Instance)
 		for (auto Terminal : Terminals) {
 			Y[Terminal] = 0;
 		}
-		/*
-		IloBoolVarArray l(Environment, Y.size());//'is link' list
-		IloBoolVarArray r(Environment, Y.size());//'is router' list
-		*/
-		
-		/*
-		IloExpr LinkSum(Environment);
-
-		for (int i = 0; i < Y.size(); i++) {
-				LinkSum += l[i];
-		}
-		Model.add(LinkSum <= Instance.GetMaxLinks() + Instance.GetMaxRouters());
-		*/
 		
 		//Adding links and routers restrictions**************************************
-		IloExpr LinkCount(Environment);
-		IloExpr RouterCount(Environment);
+		IloExpr LinkCount(Environment);//LinkCount is l
+		IloExpr RouterCount(Environment);//RouterCount is r
 		for (int i = 0; i < Y.size(); i++) {
-			if (std::find(Instance.GetTerminals().begin(), 
-				Instance.GetTerminals().end(), i) == Instance.GetTerminals().end()) {
+			if (Y[i]) {//if i is a optional vertex
 				IloExpr Degree(Environment);
 				for (int j = 0; j < y[i].getSize(); j++) Degree += y[i][j];
 				if (Degree.asVariable == 2) {
@@ -63,9 +49,11 @@ FInstance CPLEX_TCP(FInstance Instance)
 				}
 			}
 		}
-		Model.add(LinkCount <= Instance.GetMaxLinks());
-		Model.add(RouterCount <= Instance.GetMaxRouters());
+		Model.add(LinkCount <= Instance.GetMaxLinks());//MaxLinks is L
+		Model.add(RouterCount <= Instance.GetMaxRouters());//MaxRouters is R
 		//***************************************************************************
+
+
 
 
 		IloArray<IloBoolVarArray> Belongs(Environment, GraphM.size());
