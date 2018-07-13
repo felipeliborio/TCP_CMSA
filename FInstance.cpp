@@ -140,7 +140,7 @@ std::deque<int> FInstance::GetVertices() const
 }
 
 //Return a deque with the edges connected to a vertex
-std::deque<FEdge> FInstance::GetEdgesConectedToVertex(int const & Vertex)
+std::deque<FEdge> FInstance::GetEdgesConnectedToVertex(int const & Vertex)
 {//TODO this doesn't work that well
 	std::deque<FEdge> Output;
 	FEdge Edge;

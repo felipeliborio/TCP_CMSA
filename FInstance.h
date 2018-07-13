@@ -49,7 +49,7 @@ public:
 	void IncrementEdgeAge(std::deque<int> const & Edge, int const &Incremetation);
 	std::deque<int> GetTerminals() const;
 	std::deque<int> GetVertices() const;
-	std::deque<FEdge> GetEdgesConectedToVertex(int const & Vertex);
+	std::deque<FEdge> GetEdgesConnectedToVertex(int const & Vertex);
 	TInstData GetInstanceData();
 	int GetVertexCount() const;
 	Graph_t * GetGraphPointer();

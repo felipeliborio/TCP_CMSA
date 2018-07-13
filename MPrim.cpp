@@ -59,7 +59,7 @@ void VisitVertex(int& Vertex, std::deque<int>& UnreachedTerminals, FInstance& Gr
 	EdgeMap& AvailabeEdges, std::map<int, bool>& VisitedVertices)
 {
 	DeleteDequeItem(Vertex, UnreachedTerminals);
-	std::deque<FEdge> NewEdges = Graph.GetEdgesConectedToVertex(Vertex);
+	std::deque<FEdge> NewEdges = Graph.GetEdgesConnectedToVertex(Vertex);
 	AddAvailableEdges(NewEdges, AvailabeEdges);
 	for (auto& Edge : NewEdges) {
 		Graph.RemoveEdge(Edge);

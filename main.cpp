@@ -74,9 +74,9 @@ int main(int argc, char ** argv)
 	*/
 	
 	auto PInstance = Instance;
-	PInstance = MPrim(PInstance, (float) 0.2);
+	PInstance = MPrim(PInstance, 0);
 	SimplifyInstance(PInstance);
-	Instance = LNS(Instance, PInstance, (float) 0.2);
+	Instance = LNS(Instance, PInstance);
 	TInstData DataCopy = PInstance.GetInstanceData();
 	
 	for (auto& Line : DataCopy) {
