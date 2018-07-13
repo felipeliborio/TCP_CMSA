@@ -15,6 +15,7 @@ than using a map as the adjacency list container (try both ways)
 #include "FInstance.h"
 #include "MPrim.h"
 #include "CMSA.h"
+#include "TCP_LNS.h"
 #include <iostream>
 #include <string>
 #include <deque>
@@ -67,9 +68,16 @@ int main(int argc, char ** argv)
 //	Instance = MPrim(Instance, 0);
 
 
-/*
+	/*
 	Instance = CMSA(Instance, 10, 3, (float) 0.2);
 	TInstData DataCopy = Instance.GetInstanceData();
+	*/
+	
+	auto PInstance = Instance;
+	PInstance = MPrim(PInstance, (float) 0.2);
+	SimplifyInstance(PInstance);
+	Instance = LNS(Instance, PInstance, (float) 0.2);
+	TInstData DataCopy = PInstance.GetInstanceData();
 	
 	for (auto& Line : DataCopy) {
 		for (auto& Number : Line) {
@@ -79,10 +87,10 @@ int main(int argc, char ** argv)
 	}
 	std::cout << std::endl;
 	std::cout << Instance.GetLength() << std::endl;
-*/
 
 
-	CPLEX_TCP(Instance);
+
+	//CPLEX_TCP(Instance);
 
 	return 0;
 }

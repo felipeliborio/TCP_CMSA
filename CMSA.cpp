@@ -40,7 +40,9 @@ FInstance CMSA(FInstance & Instance, int PrimExecutions, int AgeMax, float const
 }
 
 FInstance ApplyExactSolver(FInstance & Instance) {
-	return CPLEX_TCP(Instance);
+	FInstance Output = MPrim(OUT Instance, 0);
+	SimplifyInstance(Output);
+	return Output;
 }
 
 void Adapt(FInstance & ReducedInstance, FInstance & BestSoFar, int const & AgeMax)

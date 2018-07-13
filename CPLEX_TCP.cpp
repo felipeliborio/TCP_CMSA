@@ -1,5 +1,7 @@
 #include "CPLEX_TCP.h"
 
+/*
+
 FInstance CPLEX_TCP(FInstance Instance)
 {
 	try {
@@ -96,9 +98,6 @@ FInstance CPLEX_TCP(FInstance Instance)
 		}
 
 
-		IloObjective Objective = IloMinimize(Environment, WeightSum);
-		Model.add(Objective);
-
 
 		/*
 		Exemplos
@@ -144,7 +143,7 @@ FInstance CPLEX_TCP(FInstance Instance)
 		std::cout << "X23: " << Cplex.getValue(X23) << std::endl;
 		*/
 
-
+/*
 
 		Cplex.end();
 		Model.end();
@@ -158,3 +157,4 @@ FInstance CPLEX_TCP(FInstance Instance)
 	}
 }
 
+*/

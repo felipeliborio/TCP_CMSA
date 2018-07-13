@@ -172,6 +172,7 @@
     <ClInclude Include="MPrim.h" />
     <ClInclude Include="load_instance.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="TCP_LNS.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SteinerCMSA_DWP.rc" />
@@ -183,6 +184,7 @@
     <ClCompile Include="MPrim.cpp" />
     <ClCompile Include="load_instance.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="TCP_LNS.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

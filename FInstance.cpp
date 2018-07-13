@@ -141,7 +141,7 @@ std::deque<int> FInstance::GetVertices() const
 
 //Return a deque with the edges connected to a vertex
 std::deque<FEdge> FInstance::GetEdgesConectedToVertex(int const & Vertex)
-{
+{//TODO this doesn't work that well
 	std::deque<FEdge> Output;
 	FEdge Edge;
 	for (auto CVertex : this->Graph[Vertex]) {
@@ -246,19 +246,20 @@ void FInstance::SetMaxLinks(int MaxLinks)
 
 int FInstance::GetArcCount()
 {
-	return this->Graph.size();
+	return (int) this->Graph.size();
 }
 
 std::deque<std::deque<int>> FInstance::GetAdjacencyMatrix()
 {
 
 	int Size = this->Graph.rbegin()->first;
-	std::deque<int> Line(Size, -1);
-	std::deque<std::deque<int>> GraphM(Size, Line);
+	std::deque<int> Line(Size + 1, -1);
+	std::deque<std::deque<int>> GraphM(Size + 1, Line);
 
 	for (auto Vertex : this->Graph) {
-		for (auto CVertex : this->Graph[Vertex.first]) {
+		for (auto CVertex : Vertex.second) {
 			GraphM[Vertex.first][CVertex.first] = CVertex.second.Weight;
+			GraphM[CVertex.first][Vertex.first] = CVertex.second.Weight;
 		}
 	}
 

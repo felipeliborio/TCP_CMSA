@@ -21,7 +21,7 @@ void DeleteDequeItem(T const & Item, std::deque<T>& Deque);
 void VisitVertex(int& Vertex, std::deque<int>& UnreachedTerminals, FInstance& Graph, 
 	EdgeMap& AvailabeEdges, std::map<int, bool>& VisitedVertices);
 
-FInstance MPrim(FInstance& Graph, float const & Alpha)
+FInstance MPrim(FInstance & Graph, float const & Alpha)
 {
 	srand((int) time(NULL));
 	FInstance Output;
