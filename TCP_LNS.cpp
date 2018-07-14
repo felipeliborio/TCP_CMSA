@@ -16,7 +16,7 @@ FInstance LNS(FInstance & Instance, FInstance & Solution) {
 	FInstance NewSolution = Solution;
 	std::deque<int> SolutionVertices = Solution.GetVertices();
 	FInstance Neighborhood = FInstance();
-	for (int i = 0; i < SolutionVertices.size() + 50; i++) {
+	for (int i = 0; i < SolutionVertices.size()/10 + 250; i++) {
 		ExpandNeighborhood(Neighborhood, Instance, SolutionVertices, (float)(((rand() % 13) + 7) / 20.0));
 		NewSolution.Merge(Neighborhood);
 		NewSolution = MPrim(NewSolution, (float) (((rand() % 7) + 3) / 30.0));

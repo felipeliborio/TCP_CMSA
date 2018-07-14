@@ -23,13 +23,15 @@ void VisitVertex(int& Vertex, std::deque<int>& UnreachedTerminals, FInstance& Gr
 
 FInstance MPrim(FInstance & Graph, float const & Alpha)
 {
-	srand((int) time(NULL));
+	//srand((int) time(NULL));
 	FInstance Output;
 	std::deque<int> UnreachedTerminals(Graph.GetTerminals());
 	Output.DefineTerminals(UnreachedTerminals);
 	std::map<int, bool> VisitedVertices;
 	EdgeMap AvailabeEdges;
 	int Origin = UnreachedTerminals[rand() % (int) UnreachedTerminals.size()];
+	//std::deque<int> GraphVertices = Graph.GetVertices();
+	//int Origin = GraphVertices[rand() % (int)GraphVertices.size()];
 	VisitVertex(Origin, UnreachedTerminals, Graph, AvailabeEdges, VisitedVertices);
 	while (UnreachedTerminals.size() > 0) {
 		for (auto& Vertex : *Output.GetGraphPointer()) {
