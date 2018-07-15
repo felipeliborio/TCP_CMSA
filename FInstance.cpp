@@ -130,6 +130,11 @@ std::deque<int> FInstance::GetTerminals() const
 	return this->Terminals;
 }
 
+std::deque<int> * FInstance::GetTerminalsPointer()
+{
+	return &(this->Terminals);
+}
+
 std::deque<int> FInstance::GetVertices() const
 {
 	std::deque<int> Output;

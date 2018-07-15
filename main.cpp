@@ -23,10 +23,17 @@ than using a map as the adjacency list container (try both ways)
 #include <filesystem>
 #include <windows.h>
 
+struct FResult
+{
+	std::string Instance;
+	long long Result = 2147483646;
+	long long TimeMS = 2147483646;
+};
+
 using TInstData = std::deque<std::deque<int>>;
 
 std::string GetInputFileLocation();
-void RunInstance(std::string InputFile, std::string OutputFile);
+FResult RunInstance(std::string InputFile, std::string OutputFile);
 std::string SetOutputFileLocation(std::string const &Input);
 bool DoesDirectoryExists(std::string const &Directory);
 std::deque<std::string> ListDirectoryFiles(std::string Directory);
@@ -47,17 +54,77 @@ int main(int argc, char ** argv)
 	else {
 		OutputFile = argv[2];
 	}
-	for (int i = 0; i < 20; i++) {
-		std::cout << "e17 ";
-		RunInstance(InputDirectory + "/steine17.txt", OutputFile);
-	}
-	//RunInstance(InputDirectory + "/steinc2.txt", OutputFile);
+
 	/*
+	for (int i = 0; i < 10; i++) {
+		FResult Current = RunInstance(InputDirectory + "/steinc11.txt", OutputFile);
+		std::cout << Current.Instance << " " << Current.Result << " " << Current.TimeMS << "\n";
+	}*/
+
+	
 	for (auto InstanceFile : ListDirectoryFiles(InputDirectory)) {
-		std::cout << InstanceFile << " ";
-		RunInstance(InputDirectory + "/" + InstanceFile, OutputFile);
+		FResult Best;
+		for (int i = 0; i < 5; i++) {
+			FResult Current = RunInstance(InputDirectory + "/" + InstanceFile, OutputFile);
+			if (Current.Result < Best.Result) {
+				Best = Current;
+			}
+		}
+		std::cout << Best.Instance << " " << Best.Result << " " << Best.TimeMS << "\n";
 	}
-	*/
+	std::cout << "\n";
+	std::cout << "\n";
+	std::cout << "\n";
+	for (auto InstanceFile : ListDirectoryFiles(InputDirectory)) {
+		FResult Best;
+		for (int i = 0; i < 5; i++) {
+			FResult Current = RunInstance(InputDirectory + "/" + InstanceFile, OutputFile);
+			if (Current.Result < Best.Result) {
+				Best = Current;
+			}
+		}
+		std::cout << Best.Instance << " " << Best.Result << " " << Best.TimeMS << "\n";
+	}
+	std::cout << "\n";
+	std::cout << "\n";
+	std::cout << "\n";
+	for (auto InstanceFile : ListDirectoryFiles(InputDirectory)) {
+		FResult Best;
+		for (int i = 0; i < 5; i++) {
+			FResult Current = RunInstance(InputDirectory + "/" + InstanceFile, OutputFile);
+			if (Current.Result < Best.Result) {
+				Best = Current;
+			}
+		}
+		std::cout << Best.Instance << " " << Best.Result << " " << Best.TimeMS << "\n";
+	}
+	std::cout << "\n";
+	std::cout << "\n";
+	std::cout << "\n";
+	for (auto InstanceFile : ListDirectoryFiles(InputDirectory)) {
+		FResult Best;
+		for (int i = 0; i < 5; i++) {
+			FResult Current = RunInstance(InputDirectory + "/" + InstanceFile, OutputFile);
+			if (Current.Result < Best.Result) {
+				Best = Current;
+			}
+		}
+		std::cout << Best.Instance << " " << Best.Result << " " << Best.TimeMS << "\n";
+	}
+	std::cout << "\n";
+	std::cout << "\n";
+	std::cout << "\n";
+	for (auto InstanceFile : ListDirectoryFiles(InputDirectory)) {
+		FResult Best;
+		for (int i = 0; i < 5; i++) {
+			FResult Current = RunInstance(InputDirectory + "/" + InstanceFile, OutputFile);
+			if (Current.Result < Best.Result) {
+				Best = Current;
+			}
+		}
+		std::cout << Best.Instance << " " << Best.Result << " " << Best.TimeMS << "\n";
+	}
+
 	return 0;
 }
 
@@ -77,61 +144,28 @@ std::deque<std::string> ListDirectoryFiles(std::string Directory) {
 	return Output;
 }
 
-void RunInstance(std::string InputFile, std::string OutputFile)
+FResult RunInstance(std::string InputFile, std::string OutputFile)
 {
 	srand((unsigned int)time(NULL));
+	FResult Output;
 
 	FInstance Instance(LoadInstance(InputFile));
 
 	Instance.SetMaxLinks(99999);
 	Instance.SetMaxRouters(99999);
 
-	//std::cout << Instance.GetLength() << std::endl;
-
-	//TInstData DataCopy = Instance.GetInstanceData();
-	/*
-	for (auto Line : DataCopy) {
-	for (auto Number : Line) {
-	std::cout << Number << " ";
-	}
-	std::cout << std::endl;
-	}
-	std::cout << std::endl;
-	std::cout << "<<<<<<<<<<<<<<AFTER PRIM>>>>>>>>>>>>>>>" << std::endl;
-	*/
-
-	//	Instance = MPrim(Instance, 0);
-
-
-	/*
-	Instance = CMSA(Instance, 10, 3, (float) 0.2);
-	TInstData DataCopy = Instance.GetInstanceData();
-	*/
-
 	auto Start = std::chrono::high_resolution_clock::now();
 
+	SimplifyInstance(Instance);
 	auto PInstance = Instance;
 	PInstance = MPrim(PInstance, 0);
-	SimplifyInstance(PInstance);
 	Instance = LNS(Instance, PInstance);
-
 	auto Elapsed = std::chrono::high_resolution_clock::now() - Start;
-	long long Ms = std::chrono::duration_cast<std::chrono::milliseconds>(Elapsed).count();
+	Output.Instance = InputFile.substr(InputFile.size() - 12, 12);
+	Output.TimeMS = std::chrono::duration_cast<std::chrono::milliseconds>(Elapsed).count();
+	Output.Result = Instance.GetLength();
 
-	/*TInstData DataCopy = Instance.GetInstanceData();
-
-	for (auto& Line : DataCopy) {
-		for (auto& Number : Line) {
-			std::cout << Number << " ";
-		}
-		std::cout << std::endl;
-	}
-	std::cout << std::endl;*/
-	std::cout << Instance.GetLength() << " ";
-	std::cout << " " << Ms << "\n";
-
-	//CPLEX_TCP(Instance);
-	return;
+	return Output;
 }
 
 std::string GetInputFileLocation()

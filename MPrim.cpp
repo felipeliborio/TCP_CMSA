@@ -1,6 +1,7 @@
 #pragma once
 
 #include "MPrim.h"
+#include "CMSA.h"
 #include <deque>
 #include <time.h>
 #include <set>
@@ -23,15 +24,12 @@ void VisitVertex(int& Vertex, std::deque<int>& UnreachedTerminals, FInstance& Gr
 
 FInstance MPrim(FInstance & Graph, float const & Alpha)
 {
-	//srand((int) time(NULL));
 	FInstance Output;
 	std::deque<int> UnreachedTerminals(Graph.GetTerminals());
 	Output.DefineTerminals(UnreachedTerminals);
 	std::map<int, bool> VisitedVertices;
 	EdgeMap AvailabeEdges;
-	int Origin = UnreachedTerminals[rand() % (int) UnreachedTerminals.size()];
-	//std::deque<int> GraphVertices = Graph.GetVertices();
-	//int Origin = GraphVertices[rand() % (int)GraphVertices.size()];
+	int Origin = UnreachedTerminals[rand() % (int) UnreachedTerminals.size()];//start from a terminal is a must
 	VisitVertex(Origin, UnreachedTerminals, Graph, AvailabeEdges, VisitedVertices);
 	while (UnreachedTerminals.size() > 0) {
 		for (auto& Vertex : *Output.GetGraphPointer()) {
@@ -54,6 +52,7 @@ FInstance MPrim(FInstance & Graph, float const & Alpha)
 			}
 		}
 	}
+	SimplifyInstance(Output);
 	return Output;
 }
 

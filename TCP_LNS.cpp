@@ -16,11 +16,10 @@ FInstance LNS(FInstance & Instance, FInstance & Solution) {
 	FInstance NewSolution = Solution;
 	std::deque<int> SolutionVertices = Solution.GetVertices();
 	FInstance Neighborhood = FInstance();
-	for (int i = 0; i < SolutionVertices.size()/10 + 250; i++) {
-		ExpandNeighborhood(Neighborhood, Instance, SolutionVertices, (float)(((rand() % 13) + 7) / 20.0));
+	for (int i = 0; i < Instance.GetTerminalsPointer()->size() + 2000; i++) {
+		ExpandNeighborhood(Neighborhood, Instance, SolutionVertices, (float)(((rand() % 16) + 3) / 20.0));
 		NewSolution.Merge(Neighborhood);
-		NewSolution = MPrim(NewSolution, (float) (((rand() % 7) + 3) / 30.0));
-		SimplifyInstance(NewSolution);
+		NewSolution = MPrim(NewSolution, (float) (((rand() % 24)) / 30.0));
 		if (NewSolution.GetLength() < BestSolution.GetLength()) {
 			BestSolution = NewSolution;
 		}
