@@ -13,7 +13,8 @@ than using a map as the adjacency list container (try both ways)
 
 #include "load_instance.h"
 #include "FInstance.h"
-#include "MPrim.h"
+//#include "MPrim.h"
+#include "MPrimTCP.h"
 #include "CMSA.h"
 #include "TCP_LNS.h"
 #include <iostream>
@@ -56,12 +57,22 @@ int main(int argc, char ** argv)
 	}
 
 	/*
+	FResult Current = RunInstance(InputDirectory + "/steinc3.txt", OutputFile);
+	std::cout << Current.Instance << " " << Current.Result << " " << Current.TimeMS << "\n";
+	*/
+
+	for (auto InstanceFile : ListDirectoryFiles(InputDirectory)) {
+		FResult Current = RunInstance(InputDirectory + "/" + InstanceFile, OutputFile);
+		std::cout << Current.Instance << " " << Current.Result << " " << Current.TimeMS << "\n";
+	}
+
+	/*
 	for (int i = 0; i < 10; i++) {
 		FResult Current = RunInstance(InputDirectory + "/steinc11.txt", OutputFile);
 		std::cout << Current.Instance << " " << Current.Result << " " << Current.TimeMS << "\n";
 	}*/
 
-	
+	/*
 	for (auto InstanceFile : ListDirectoryFiles(InputDirectory)) {
 		FResult Best;
 		for (int i = 0; i < 5; i++) {
@@ -123,7 +134,7 @@ int main(int argc, char ** argv)
 			}
 		}
 		std::cout << Best.Instance << " " << Best.Result << " " << Best.TimeMS << "\n";
-	}
+	}*/
 
 	return 0;
 }
@@ -151,19 +162,23 @@ FResult RunInstance(std::string InputFile, std::string OutputFile)
 
 	FInstance Instance(LoadInstance(InputFile));
 
-	Instance.SetMaxLinks(99999);
-	Instance.SetMaxRouters(99999);
+	Instance.SetMaxLinks(int((Instance.GetVertexCount() - (*Instance.GetTerminalsPointer()).size()) / 4));
+	Instance.SetMaxRouters(int((Instance.GetVertexCount() - (*Instance.GetTerminalsPointer()).size()) / 6));
 
 	auto Start = std::chrono::high_resolution_clock::now();
 
 	SimplifyInstance(Instance);
+	int InitialSize = Instance.GetLength();
 	auto PInstance = Instance;
-	PInstance = MPrim(PInstance, 0);
+	PInstance = MPrimTCP(PInstance, 0);
 	Instance = LNS(Instance, PInstance);
 	auto Elapsed = std::chrono::high_resolution_clock::now() - Start;
 	Output.Instance = InputFile.substr(InputFile.size() - 12, 12);
 	Output.TimeMS = std::chrono::duration_cast<std::chrono::milliseconds>(Elapsed).count();
 	Output.Result = Instance.GetLength();
+	if (Output.Result == InitialSize) {
+		Output.Result = -1;
+	}
 
 	return Output;
 }

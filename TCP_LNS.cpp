@@ -6,7 +6,8 @@
 #include <time.h>
 #include <set>
 #include <map>
-#include "MPrim.h"
+//#include "MPrim.h"
+#include "MPrimTCP.h"
 #include "CMSA.h"
 
 void ExpandNeighborhood(FInstance & Neighborhood, FInstance & Instance, std::deque<int> SolutionVertices, float const & Destruction);
@@ -19,7 +20,7 @@ FInstance LNS(FInstance & Instance, FInstance & Solution) {
 	for (int i = 0; i < Instance.GetTerminalsPointer()->size() + 2000; i++) {
 		ExpandNeighborhood(Neighborhood, Instance, SolutionVertices, (float)(((rand() % 16) + 3) / 20.0));
 		NewSolution.Merge(Neighborhood);
-		NewSolution = MPrim(NewSolution, (float) (((rand() % 24)) / 30.0));
+		NewSolution = MPrimTCP(NewSolution, (float) (((rand() % 24)) / 30.0));
 		if (NewSolution.GetLength() < BestSolution.GetLength()) {
 			BestSolution = NewSolution;
 		}

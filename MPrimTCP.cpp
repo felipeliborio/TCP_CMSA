@@ -1,15 +1,13 @@
 #pragma once
-/*
-#include "MPrim.h"
+
+#include "MPrimTCP.h"
 #include "CMSA.h"
 #include <deque>
 #include <time.h>
 #include <set>
 #include <map>
 
-//REVIEW The AvailableEdges size seems off by a huge amount. Check why.
-
-using EdgeMap = std::map<int, std::deque<FEdge>>;//weight to edge deque map
+using EdgeMap = std::map<int, std::deque<FEdge>>;
 
 void AddAvailableEdges(std::deque<FEdge>& NewEdges, EdgeMap& EdgeMap);
 FEdge GetAlphaEdge(float const & Alpha, EdgeMap& AvailableEdges);
@@ -19,18 +17,24 @@ void RemoveAvailableEdge(FEdge& Edge, EdgeMap& EdgeMap);
 template <typename T>
 void DeleteDequeItem(T const & Item, std::deque<T>& Deque);
 
-void VisitVertex(int& Vertex, std::deque<int>& UnreachedTerminals, FInstance& Graph, 
+void VisitVertex(int& Vertex, std::deque<int>& UnreachedTerminals, FInstance& Graph,
 	EdgeMap& AvailabeEdges, std::map<int, bool>& VisitedVertices);
 
-FInstance MPrim(FInstance & Graph, float const & Alpha)
+bool DoesItBreakRestrictions(FInstance & Instance);
+
+FInstance MPrimTCP(FInstance & Graph, float const & Alpha)
 {
+	FInstance InitialGraph = Graph;
 	FInstance Output;
+	Output.SetMaxLinks(Graph.GetMaxLinks());
+	Output.SetMaxRouters(Graph.GetMaxRouters());
 	std::deque<int> UnreachedTerminals(Graph.GetTerminals());
 	Output.DefineTerminals(UnreachedTerminals);
 	std::map<int, bool> VisitedVertices;
 	EdgeMap AvailabeEdges;
-	int Origin = UnreachedTerminals[rand() % (int) UnreachedTerminals.size()];//start from a terminal is a must
+	int Origin = UnreachedTerminals[rand() % (int)UnreachedTerminals.size()];
 	VisitVertex(Origin, UnreachedTerminals, Graph, AvailabeEdges, VisitedVertices);
+
 	while (UnreachedTerminals.size() > 0) {
 		for (auto& Vertex : *Output.GetGraphPointer()) {
 			if (!VisitedVertices[Vertex.first]) {
@@ -44,11 +48,15 @@ FInstance MPrim(FInstance & Graph, float const & Alpha)
 				do {
 					FEdge AlphaEdge = GetAlphaEdge(Alpha, AvailabeEdges);
 					Inserted = Output.InsertEdge(AlphaEdge, false, false);
+					if (DoesItBreakRestrictions(Output)) {
+						Output.RemoveEdge(AlphaEdge);
+						Inserted = EOperationStatus::Failed;
+					}
 					RemoveAvailableEdge(AlphaEdge, AvailabeEdges);
 				} while (Inserted != EOperationStatus::Succeded && AvailabeEdges.size() > 0);
 			}
 			else {
-				return FInstance();
+				return InitialGraph;
 			}
 		}
 	}
@@ -135,7 +143,7 @@ void RemoveAvailableEdge(FEdge & Edge, EdgeMap & EdgeMap)
 FEdge GetAlphaEdge(float const & Alpha, EdgeMap & AvailableEdges)
 {
 	auto It = AvailableEdges.begin();
-	int Key = (int) (It->first + Alpha * ((--AvailableEdges.end())->first - It->first));
+	int Key = (int)(It->first + Alpha * ((--AvailableEdges.end())->first - It->first));
 	std::deque<int> AvailableKeys;
 	for (; It != AvailableEdges.upper_bound(Key); ++It) {
 		AvailableKeys.push_back(It->first);
@@ -146,5 +154,23 @@ FEdge GetAlphaEdge(float const & Alpha, EdgeMap & AvailableEdges)
 	return ChosenSubset[Key];
 }
 
-
-*/
+bool DoesItBreakRestrictions(FInstance & Instance)
+{
+	int LCount = 0, RCount = 0;
+	auto Terminals = Instance.GetTerminalsPointer();
+	for (auto Vertex : (*Instance.GetGraphPointer())) {
+		if (Vertex.second.size() == 2) {
+			auto It = std::find((*Terminals).begin(), (*Terminals).end(), Vertex.first);
+			if (It == (*Terminals).end()) {
+				LCount++;
+			}
+		}
+		else if (Vertex.second.size() > 2) {
+			auto It = std::find((*Terminals).begin(), (*Terminals).end(), Vertex.first);
+			if (It == (*Terminals).end()) {
+				RCount++;
+			}
+		}
+	}
+	return LCount > Instance.GetMaxLinks() || RCount > Instance.GetMaxRouters();
+}

@@ -21,7 +21,7 @@ FInstance CMSA(FInstance & Instance, int PrimExecutions, int AgeMax, float const
 	while (time(NULL) < EndTime && UnenhancendIt < MaxUnenhanced) {
 		for (int Iteration = 0; Iteration < PrimExecutions; ++Iteration) {
 			TempInstance = Instance;
-			FInstance PrimSolution = MPrim(OUT TempInstance, Alpha);
+			FInstance PrimSolution = MPrimTCP(OUT TempInstance, Alpha);
 			ReducedInstance.Merge(OUT PrimSolution);
 		}
 		SimplifyInstance(ReducedInstance);
@@ -40,7 +40,7 @@ FInstance CMSA(FInstance & Instance, int PrimExecutions, int AgeMax, float const
 }
 
 FInstance ApplyExactSolver(FInstance & Instance) {
-	FInstance Output = MPrim(OUT Instance, 0);
+	FInstance Output = MPrimTCP(OUT Instance, 0);
 	SimplifyInstance(Output);
 	return Output;
 }

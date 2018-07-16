@@ -1,6 +1,6 @@
 #pragma once
 
-#include "MPrim.h"
+#include "MPrimTCP.h"
 #include "FInstance.h"
 #include "CPLEX_TCP.h"
 
