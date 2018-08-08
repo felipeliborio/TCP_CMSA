@@ -86,12 +86,12 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>false</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Program Files\IBM\ILOG\CPLEX_Studio128\cplex\include;C:\Program Files\IBM\ILOG\CPLEX_Studio128\concert\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_CONSOLE;IL_STD;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>C:\Program Files\IBM\ILOG\CPLEX_Studio128\cplex\lib\x64_windows_vs2017\stat_mda\cplex1280.lib;C:\Program Files\IBM\ILOG\CPLEX_Studio128\cplex\lib\x64_windows_vs2017\stat_mda\ilocplex.lib;C:\Program Files\IBM\ILOG\CPLEX_Studio128\concert\lib\x64_windows_vs2017\stat_mda\concert.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -99,12 +99,12 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>false</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Program Files\IBM\ILOG\CPLEX_Studio128\cplex\include;C:\Program Files\IBM\ILOG\CPLEX_Studio128\concert\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_CONSOLE;IL_STD;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>C:\Program Files\IBM\ILOG\CPLEX_Studio128\cplex\lib\x64_windows_vs2017\stat_mda\cplex1280.lib;C:\Program Files\IBM\ILOG\CPLEX_Studio128\cplex\lib\x64_windows_vs2017\stat_mda\ilocplex.lib;C:\Program Files\IBM\ILOG\CPLEX_Studio128\concert\lib\x64_windows_vs2017\stat_mda\concert.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -117,7 +117,7 @@
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
-      <AdditionalIncludeDirectories>C:\Program Files\IBM\ILOG\CPLEX_Studio128\cplex\include;C:\Program Files\IBM\ILOG\CPLEX_Studio128\concert\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_CONSOLE;IL_STD;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -133,7 +133,7 @@
       <StackCommitSize>
       </StackCommitSize>
       <LargeAddressAware>true</LargeAddressAware>
-      <AdditionalDependencies>C:\Program Files\IBM\ILOG\CPLEX_Studio128\cplex\lib\x64_windows_vs2017\stat_mda\cplex1280.lib;C:\Program Files\IBM\ILOG\CPLEX_Studio128\cplex\lib\x64_windows_vs2017\stat_mda\ilocplex.lib;C:\Program Files\IBM\ILOG\CPLEX_Studio128\concert\lib\x64_windows_vs2017\stat_mda\concert.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -146,7 +146,7 @@
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
-      <AdditionalIncludeDirectories>C:\Program Files\IBM\ILOG\CPLEX_Studio128\cplex\include;C:\Program Files\IBM\ILOG\CPLEX_Studio128\concert\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_CONSOLE;IL_STD;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -162,12 +162,11 @@
       <StackCommitSize>
       </StackCommitSize>
       <LargeAddressAware>true</LargeAddressAware>
-      <AdditionalDependencies>C:\Program Files\IBM\ILOG\CPLEX_Studio128\cplex\lib\x64_windows_vs2017\stat_mda\cplex1280.lib;C:\Program Files\IBM\ILOG\CPLEX_Studio128\cplex\lib\x64_windows_vs2017\stat_mda\ilocplex.lib;C:\Program Files\IBM\ILOG\CPLEX_Studio128\concert\lib\x64_windows_vs2017\stat_mda\concert.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CMSA.h" />
-    <ClInclude Include="CPLEX_TCP.h" />
     <ClInclude Include="FInstance.h" />
     <ClInclude Include="MPrim.h" />
     <ClInclude Include="load_instance.h" />
@@ -180,7 +179,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CMSA.cpp" />
-    <ClCompile Include="CPLEX_TCP.cpp" />
     <ClCompile Include="FInstance.cpp" />
     <ClCompile Include="MPrim.cpp" />
     <ClCompile Include="load_instance.cpp" />

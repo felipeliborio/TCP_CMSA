@@ -162,8 +162,8 @@ FResult RunInstance(std::string InputFile, std::string OutputFile)
 
 	FInstance Instance(LoadInstance(InputFile));
 
-	Instance.SetMaxLinks(int((Instance.GetVertexCount() - (*Instance.GetTerminalsPointer()).size()) / 4));
-	Instance.SetMaxRouters(int((Instance.GetVertexCount() - (*Instance.GetTerminalsPointer()).size()) / 6));
+	Instance.SetMaxLinks(int((Instance.GetVertexCount() - (*Instance.GetTerminalsPointer()).size()) / 3));
+	Instance.SetMaxRouters(int((Instance.GetVertexCount() - (*Instance.GetTerminalsPointer()).size()) / 4));
 
 	auto Start = std::chrono::high_resolution_clock::now();
 

@@ -30,9 +30,6 @@
     <ClInclude Include="CMSA.h">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
-    <ClInclude Include="CPLEX_TCP.h">
-      <Filter>Arquivos de Cabeçalho</Filter>
-    </ClInclude>
     <ClInclude Include="TCP_LNS.h">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
@@ -59,9 +56,6 @@
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
     <ClCompile Include="CMSA.cpp">
-      <Filter>Arquivos de Origem</Filter>
-    </ClCompile>
-    <ClCompile Include="CPLEX_TCP.cpp">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
     <ClCompile Include="TCP_LNS.cpp">
